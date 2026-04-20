@@ -30,7 +30,7 @@ spec:
       env: dev 
       
   serviceName: "mongodb-headless"
-  replicas: 3 # by default is 1
+  replicas: 3
   #minReadySeconds: 10 # by default is 0
   template:
     metadata:
@@ -55,7 +55,7 @@ spec:
       storageClassName: "roboshop-ebs"
       resources:
         requests:
-          storage: 1Gi
+          storage: 10Gi
 
 ---
 apiVersion: v1
