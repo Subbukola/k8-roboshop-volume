@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb-headless
+  name: redis-headless
   namespace: roboshop
   labels:
     project: roboshop
-    component: mongodb
+    component: redis 
     env: dev 
 spec:
   selector:
       project: roboshop
-      component: mongodb
+      component: redis 
       env: dev 
   clusterIP: None
   ports:
@@ -20,39 +20,39 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongodb 
+  name: redis 
   namespace: roboshop
 spec:
   selector:
     matchLabels:
       project: roboshop
-      component: mongodb
+      component: redis
       env: dev 
       
-  serviceName: "mongodb-headless"
+  serviceName: "redis-headless"
   replicas: 1
   #minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
         project: roboshop
-        component: mongodb
+        component: redis
         env: dev 
       
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: mongodb 
-        image: subbukola541/mongodb:1.0
+      - name: redis 
+        image: subbukola541/redis:7.0
         volumeMounts:
-        - name: mongodb 
+        - name: redis 
           mountPath: /data/db
   volumeClaimTemplates:
   - metadata:
-      name: mongodb 
+      name: redis 
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "mongodb-ebs"
+      storageClassName: "redis-ebs"
       resources:
         requests:
           storage: 10Gi
@@ -61,18 +61,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: redis
   namespace: roboshop
   labels:
     project: roboshop
-    component: mongodb
+    component: redis
     env: dev 
 spec:
   selector:
       project: roboshop
-      component: mongodb
+      component: redis
       env: dev 
   
   ports:
-  - port: 27017  # service port
-    targetPort: 27017  # container port 
+  - port: 6379  # service port
+    targetPort: 6379  # container port 
