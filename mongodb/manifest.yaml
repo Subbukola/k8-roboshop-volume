@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-headless
-  Namespace: roboshop
+  namespace: roboshop
   labels:
     project: roboshop
     component: mongodb
@@ -15,14 +15,13 @@ spec:
   clusterIP: None
   ports:
   - port: 27017  # service port
-    targetPort: 27017  # container port
-      
+    targetPort: 27017  # container port     
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb 
-  Namespace: roboshop
+  namespace: roboshop
 spec:
   selector:
     matchLabels:
@@ -63,7 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-headless
-  Namespace: roboshop
+  namespace: roboshop
   labels:
     project: roboshop
     component: mongodb
