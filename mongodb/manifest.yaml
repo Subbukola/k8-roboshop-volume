@@ -72,7 +72,7 @@ spec:
       project: roboshop
       component: mongodb
       env: dev 
-  clusterIP: None
+  
   ports:
   - port: 27017  # service port
     targetPort: 27017  # container port 
